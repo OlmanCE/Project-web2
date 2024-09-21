@@ -1,0 +1,31 @@
+<div class="add-video-container"></div>
+    <h2>Agregar Nuevo Video</h2>
+    <form id="add-video-form">
+        <div class="form-group">
+            <label for="video-file">Seleccionar Video (MP4, max 10MB) *</label>
+            <input type="file" id="video-file" name="video-file" accept=".mp4" required>
+        </div>
+        <div class="form-group">
+            <label for="video-title">Título del Video *</label>
+            <input type="text" id="video-title" name="video-title" required>
+        </div>
+        <div class="form-group">
+            <label for="video-description">Descripción del Video (max 300 caracteres)</label>
+            <textarea id="video-description" name="video-description" maxlength="300"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="video-thumbnail">Thumbnail del Video (JPG, max 2MB)</label>
+            <input type="file" id="video-thumbnail" name="video-thumbnail" accept=".jpg">
+        </div>
+        <button type="submit" class="submit-btn">Subir Video</button>
+    </form>
+    <div id="upload-status" class="hidden">
+        <div class="loader"></div>
+        <p>Subiendo video...</p>
+    </div>
+    <div id="error-message" class="hidden"></div>
+    <div id="success-message" class="hidden">
+        <p>Video subido exitosamente!</p>
+        <button id="return-home">Volver a Inicio</button>
+    </div>
+</div>
