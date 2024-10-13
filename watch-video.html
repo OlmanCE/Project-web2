@@ -1,0 +1,32 @@
+<div class="watch-video-container"></div>
+    <div class="video-player">
+        <video id="video-element" width="100%" height="500px" controls poster="">
+            <source id="video-source" src="" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+    <div class="video-info">
+        <h1 id="video-title-name">Título del video</h1>
+
+        <div class="flex-div">
+            <div class="info-container">
+                <p id="video-views">0 visualizaciones</p>
+                <p id="video-creation-date">Fecha de creación: </p>
+            </div>
+
+            <button id="favorite-button" onclick="toggleFavorite()">Marcar como Favorito</button>
+        </div>
+
+        <p id="watch-video-description">Descripción del video</p>
+
+    </div>
+    <div class="comments-section">
+        <h3 id="comments-title">Comentarios</h3>
+        <ul id="comments-list">
+            <!-- Los comentarios se llenarán dinámicamente -->
+        </ul>
+
+        <textarea id="new-comment" placeholder="Escribe un comentario"></textarea>
+        <button onclick="addComment()">Agregar comentario</button>
+    </div>
+</div>

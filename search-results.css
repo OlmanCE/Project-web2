@@ -16,7 +16,8 @@
     display: flex;
     gap: 1rem;
     padding: 1rem;
-    background-color: white;
+    /* background-color: white; */
+    background-color: rgb(53, 53, 53);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -25,6 +26,7 @@
 
 .search-result-item:hover {
     transform: translateY(-2px);
+    background-color: rgb(68, 68, 68);
 }
 
 .search-result-thumbnail {
@@ -59,4 +61,22 @@
 
 .search-result-favorite {
     color: #ff0000;
+}
+
+@media (width <= 630px){
+    .search-result-item{
+        flex-direction: column;
+    }
+    .search-result-item img{
+        margin: auto;
+    }
+
+}
+@media (width <= 440px){
+    .search-result-meta {
+        flex-direction: column;
+    }
+    .search-result-meta span{
+        margin-top: 5px;
+    }
 }
