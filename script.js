@@ -294,25 +294,40 @@ async function performSearch(query) {
 function renderSearchResults(results) {
     const container = document.getElementById('search-results');
     container.innerHTML = '';
-    results.forEach(video => {
-        const videoElement = document.createElement('div');
-        videoElement.className = 'search-result-item';
-        const creationDate = new Date(video.creationDate).toLocaleDateString();
-        videoElement.innerHTML = `
-            <img src="${BASE_URL}${video.thumbnailPath}" alt="${video.title}" class="search-result-thumbnail">
-            <div class="search-result-info">
-                <h3 class="search-result-title">${video.title}</h3>
-                <p class="search-result-description">${video.description}</p>
-                <div class="search-result-meta">
-                    <span>Creado el ${creationDate}</span>
-                    <span>${video.viewsCount} visualizaciones</span>
-                    <span class="search-result-favorite">${video.isFavorite ? '★ Favorito' : '☆ No favorito'}</span>
+    console.log("LEN: ", results.length)
+    results.length > 0 ? 
+    (
+        results.forEach(video => {
+            let videoElement = document.createElement('div');
+            videoElement.className = 'search-result-item';
+            const creationDate = new Date(video.creationDate).toLocaleDateString();
+            videoElement.innerHTML = 
+            `
+                <img src="${BASE_URL}${video.thumbnailPath}" alt="${video.title}" class="search-result-thumbnail">
+                <div class="search-result-info">
+                    <h3 class="search-result-title">${video.title}</h3>
+                    <p class="search-result-description">${video.description}</p>
+                    <div class="search-result-meta">
+                        <span>Creado el ${creationDate}</span>
+                        <span>${video.viewsCount} visualizaciones</span>
+                        <span class="search-result-favorite">${video.isFavorite ? '★ Favorito' : '☆ No favorito'}</span>
+                    </div>
                 </div>
-            </div>
-        `;
-        videoElement.addEventListener('click', () => loadVideo(video.id));
+            `;
+            videoElement.addEventListener('click', () => loadVideo(video.id));
+            container.appendChild(videoElement);
+        })
+    )
+    :
+        console.log("Entro")
+        let videoElement = document.createElement('div')
+        videoElement.innerHTML = 
+            `
+                <h3><i>No se encontraron resultados para la busqueda</i></h3>
+            `;
+        videoElement.className = 'results-not-found'
         container.appendChild(videoElement);
-    });
+    
 }
 
 function setVideoIdToLocalStorage(videoId) {
@@ -361,7 +376,9 @@ async function loadVideoData(videoId) {
     videoElement.poster = BASE_URL+videoData.thumbnailPath; // Miniatura
     document.getElementById('video-source').src = BASE_URL+videoData.videoPath; // Video
 
-    document.getElementById('comments-title').innerText = `${videoData.comments.length} comentarios`;
+    const cantidadDeComentarios = videoData.comments.length;
+    const countCommentsText = cantidadDeComentarios != 1 ? ' comentarios' : ' comentario';
+    document.getElementById('comments-title').innerText = `${cantidadDeComentarios} ${countCommentsText}`;
 
     // Cargar el video
     videoElement.load();
@@ -419,11 +436,16 @@ async function addComment() {
     // Obtener la lista de comentarios
     const commentsList = document.getElementById('comments-list');
 
+
     // Si hay un mensaje de "No hay comentarios aún", eliminarlo
     const noCommentsMessage = commentsList.querySelector('li');
     if (noCommentsMessage && noCommentsMessage.textContent.includes('No hay comentarios aún')) {
         commentsList.removeChild(noCommentsMessage);
     }
+
+    const cantidadDeComentarios = commentsList.children.length;
+    const countCommentsText = cantidadDeComentarios+1 > 1 ? ' comentarios' : ' comentario';
+    document.getElementById('comments-title').innerText = `${cantidadDeComentarios+1} ${countCommentsText}`;
 
     // Obtener la fecha actual para el nuevo comentario
     const newCommentDate = new Date().toISOString();
